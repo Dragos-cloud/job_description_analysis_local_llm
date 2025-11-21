@@ -3,6 +3,7 @@
 
 ## A privacy-focused, offline AI tool for comprehensive job description analysis. Run powerful AI analysis entirely on your local machine using LM Studio - no data leaves your computer.
 Get a deep analysis on the Job Description before you apply to better understand the requirements and to prepare for the interview.
+***This tool is only providing you guidance and should not replace your personal judgment, expertise, or responsibility when evaluating a job description or when making a decision about it.***
 
 ## 🌟 Features
 
