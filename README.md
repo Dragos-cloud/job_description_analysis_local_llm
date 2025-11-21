@@ -1,6 +1,8 @@
 # Job Description Deep Analyzer
+[https://www.orand-advisors.com/](https://www.orand-advisors.com/simple-tools/)
 
-A privacy-focused, offline AI tool for comprehensive job description analysis. Run powerful AI analysis entirely on your local machine using LM Studio - no data leaves your computer.
+## A privacy-focused, offline AI tool for comprehensive job description analysis. Run powerful AI analysis entirely on your local machine using LM Studio - no data leaves your computer.
+Get a deep analysis on the Job Description before you apply to better understand the requirements and to prepare for the interview.
 
 ## 🌟 Features
 
