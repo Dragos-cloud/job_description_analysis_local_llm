@@ -16,7 +16,9 @@ Get a deep analysis on the Job Description before you apply to better understand
   - Interview Prep Generator (custom questions for the role)
   - Seniority & Market Positioning (salary estimates, career growth)
 - **Clean, Modern UI**: Intuitive interface with tabbed navigation
-- **Export Options**: Copy to clipboard or export as DOCX
+- **Export Options**: Copy to clipboard or export as DOCX with UTF-8 encoding
+- **Advanced Markdown Rendering**: Uses marked.js and DOMPurify for safe, properly formatted output
+- **Enhanced Analysis**: Improved prompts with Myers-Briggs personality profiling
 - **User Guide**: Built-in carousel guide for setup and troubleshooting
 
 ## 🚀 Quick Start
@@ -29,7 +31,7 @@ Get a deep analysis on the Job Description before you apply to better understand
 
 ### Usage
 
-1. Open `standalone_jd_analysis_cm_user_guide_gemini.html` in your web browser
+1. Open `standalone_jd_analysis_cm_user_guide_v1.html` in your web browser
 2. Click the refresh icon to connect to LM Studio
 3. Select your model from the dropdown
 4. Paste a job description
