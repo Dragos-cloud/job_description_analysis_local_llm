@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
+
     <style>
         /* JD Analyzer Standalone Styles */
         :root {
-            --primary-color: #0097d7; /* Updated to Requested Blue */
-            --primary-dark: #0072a3;  /* Darker shade of #0097d7 for gradients */
+            --primary-color: #0097d7;
+            /* Updated to Requested Blue */
+            --primary-dark: #0072a3;
+            /* Darker shade of #0097d7 for gradients */
             --secondary-color: #64748b;
             --success-color: #059669;
-            --warning-color: #f68710; /* Updated to Requested Orange */
+            --warning-color: #f68710;
+            /* Updated to Requested Orange */
             --error-color: #dc2626;
             --background-color: #f8fafc;
             --surface-color: #ffffff;
@@ -29,7 +33,11 @@
             --transition: all 0.2s ease-in-out;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -38,7 +46,11 @@
             line-height: 1.6;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
 
         /* Header */
         .header {
@@ -46,7 +58,7 @@
             color: white;
             padding: 2rem 0;
             margin-bottom: 0;
-            border-bottom: 4px solid rgba(0,0,0,0.1);
+            border-bottom: 4px solid rgba(0, 0, 0, 0.1);
         }
 
         .header-content h1 {
@@ -72,12 +84,20 @@
             padding: 0.5rem 1rem;
             border-radius: var(--border-radius);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .status-dot { font-size: 0.6rem; }
-        .status-dot.connected { color: #86efac; }
-        .status-dot.disconnected { color: #fca5a5; }
+        .status-dot {
+            font-size: 0.6rem;
+        }
+
+        .status-dot.connected {
+            color: #86efac;
+        }
+
+        .status-dot.disconnected {
+            color: #fca5a5;
+        }
 
         /* Tabs Navigation */
         .tabs-container {
@@ -100,184 +120,269 @@
             background: none;
             border: none;
             font-size: 1rem;
-            font-weight: 600;
-            color: var(--warning-color);
+            font-weight: 500;
+            color: var(--text-secondary);
             cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
         }
 
-        .tab-btn:hover { color: var(--primary-color); }
-        
+        .tab-btn:hover {
+            color: var(--primary-color);
+        }
+
         .tab-btn.active {
             color: var(--primary-color);
             border-bottom-color: var(--primary-color);
         }
 
-        /* Tab Content Handling */
-        .tab-content { 
-            display: none; 
-            animation: fadeIn 0.3s ease; 
-        }
-        
-        /* Specific display types for active tabs */
-        #tab-analyzer.active { 
-            display: flex; /* Analyzer needs flex for column layout */
-        }
-        
-        #tab-guide.active { 
-            display: block; /* Guide needs block for carousel */
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+        .tab-content {
+            display: none;
         }
 
-        /* Main Content Utilities */
-        .main-content { 
-            /* display: flex; REMOVED to prevent conflict with tab hiding */
-            flex-direction: column; 
-            gap: 2rem; 
-            padding-bottom: 4rem; 
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Main Content Area */
+        .main-content {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
 
         section {
-            background: var(--surface-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
+            margin-bottom: 2.5rem;
         }
 
-        h2, h3 { color: var(--warning-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-
-        /* LM Studio Config */
-        .mode-section {
-            background: #e0f2fe; /* Light blue tint */
-            border: 1px solid #bae6fd;
-        }
-        
-        .api-config {
-            background: #fff;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            border: 1px solid var(--border-color);
-        }
-
-        .config-row { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-end; }
-        .config-col-full { flex: 1; width: 100%; }
-        
-        /* Inputs */
-        .input-group label {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        h2 {
+            font-size: 1.5rem;
             color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--background-color);
+            padding-bottom: 0.75rem;
         }
 
+        h2 i {
+            color: var(--primary-color);
+        }
+
+        /* Forms */
+        .form-input,
+        .form-select,
         .form-textarea {
             width: 100%;
-            padding: 1rem;
+            padding: 0.75rem;
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
+            font-family: inherit;
             font-size: 1rem;
-            font-family: 'Inter', monospace;
-            resize: vertical;
-            min-height: 250px;
             transition: var(--transition);
         }
 
-        .form-textarea:focus, .form-input:focus, .form-select:focus {
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(0, 151, 215, 0.1);
         }
 
-        .form-input, .form-select {
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            font-size: 0.95rem;
-            width: 100%;
+        .form-textarea {
+            min-height: 200px;
+            resize: vertical;
         }
 
-        .char-count { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem; text-align: right; display: block;}
+        .input-group {
+            position: relative;
+        }
+
+        .char-count {
+            position: absolute;
+            bottom: 0.75rem;
+            right: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Config Section */
+        .api-config {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .config-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .config-col-full {
+            flex: 1;
+            min-width: 250px;
+        }
 
         /* Options Grid */
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1rem;
-            margin-top: 1rem;
         }
 
         .checkbox-label {
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
-            cursor: pointer;
+            gap: 1rem;
             padding: 1rem;
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .checkbox-label:hover { background: #f0f9ff; border-color: var(--primary-color); }
-        .checkbox-label input[type="checkbox"] { margin-top: 0.25rem; }
-        
+        .checkbox-label:hover {
+            background: var(--background-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-top: 0.3rem;
+            transform: scale(1.2);
+        }
+
         .checkbox-info {
             display: flex;
             flex-direction: column;
         }
-        .checkbox-title { font-weight: 600; font-size: 0.95rem; }
-        .checkbox-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+        .checkbox-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .checkbox-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
 
         /* Buttons */
-        .action-section { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
-        
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            border: none;
+            padding: 0.75rem 1.5rem;
             border-radius: var(--border-radius);
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            border: none;
+            font-size: 1rem;
         }
 
-        .btn-primary { background: var(--primary-color); color: white; }
-        .btn-primary:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-1px); }
-        .btn-secondary { background: var(--secondary-color); color: white; }
-        .btn-secondary:hover:not(:disabled) { background: #475569; }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 151, 215, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--background-color);
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+        }
 
         /* Results */
         .analysis-output {
+            background: var(--background-color);
             padding: 2rem;
-            background: #ffffff;
-            line-height: 1.7;
             border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            min-height: 100px;
+            line-height: 1.7;
         }
 
-        .analysis-output h1 { font-size: 1.8rem; color: var(--primary-color); border-bottom: 2px solid #e0e7ff; padding-bottom: 0.5rem; margin-top: 2rem; }
-        .analysis-output h2 { font-size: 1.4rem; color: var(--text-primary); margin-top: 1.5rem; border-left: 4px solid var(--primary-color); padding-left: 1rem; }
-        .analysis-output h3 { font-size: 1.2rem; color: #4b5563; margin-top: 1.2rem; }
-        .analysis-output ul, .analysis-output ol { padding-left: 1.5rem; margin: 1rem 0; }
-        .analysis-output li { margin-bottom: 0.5rem; }
-        .analysis-output strong { color: var(--primary-dark); }
-        
+        .analysis-output h1,
+        .analysis-output h2,
+        .analysis-output h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .analysis-output h2 {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .analysis-output p {
+            margin-bottom: 1rem;
+        }
+
+        .analysis-output ul,
+        .analysis-output ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .analysis-output li {
+            margin-bottom: 0.5rem;
+        }
+
+        .analysis-output strong {
+            color: var(--primary-dark);
+        }
+
         /* --- CAROUSEL STYLES --- */
         .guide-carousel-container {
             position: relative;
-            height: 600px; /* Fixed height for consistency */
+            height: 600px;
+            /* Fixed height for consistency */
             width: 100%;
             margin: 0 auto;
             overflow: hidden;
@@ -298,21 +403,32 @@
             min-width: 100%;
             height: 100%;
             padding: 3rem 4rem;
-            overflow-y: auto; /* Allow scroll inside slide if content is too long */
+            overflow-y: auto;
+            /* Allow scroll inside slide if content is too long */
             display: flex;
             flex-direction: column;
-            /* justify-content: center; */ /* Let content flow naturally */
+            /* justify-content: center; */
+            /* Let content flow naturally */
         }
 
-        .guide-slide h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--primary-color); }
-        .guide-slide h3 { color: var(--text-primary); font-size: 1.3rem; margin-top: 1.5rem; }
+        .guide-slide h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .guide-slide h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+        }
 
         /* Carousel Controls */
         .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.9);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--border-color);
             color: var(--primary-color);
             width: 50px;
@@ -327,10 +443,20 @@
             transition: all 0.2s;
             z-index: 10;
         }
-        .carousel-btn:hover { background: var(--primary-color); color: white; }
-        .carousel-btn.prev { left: 20px; }
-        .carousel-btn.next { right: 20px; }
-        
+
+        .carousel-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .carousel-btn.prev {
+            left: 20px;
+        }
+
+        .carousel-btn.next {
+            right: 20px;
+        }
+
         .carousel-nav {
             position: absolute;
             bottom: 20px;
@@ -340,7 +466,7 @@
             gap: 10px;
             z-index: 10;
         }
-        
+
         .carousel-dot {
             width: 12px;
             height: 12px;
@@ -350,8 +476,11 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        
-        .carousel-dot.active { background: var(--primary-color); transform: scale(1.2); }
+
+        .carousel-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
 
         /* Guide Content Elements */
         .step-number {
@@ -366,14 +495,14 @@
             font-weight: bold;
             margin-right: 0.5rem;
         }
-        
+
         .guide-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
-        
+
         .guide-card {
             background: #f8fafc;
             padding: 1.5rem;
@@ -381,33 +510,97 @@
             border: 1px solid #e2e8f0;
             text-align: center;
         }
-        .guide-card i { font-size: 2rem; margin-bottom: 1rem; display: block; }
+
+        .guide-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
 
         /* Toast */
-        .toast-container { position: fixed; top: 1rem; right: 1rem; z-index: 1000; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { padding: 1rem 1.5rem; border-radius: var(--border-radius); color: white; box-shadow: var(--shadow-md); animation: slideIn 0.3s ease; }
-        .toast.success { background: var(--success-color); }
-        .toast.error { background: var(--error-color); }
-        .toast.warning { background: var(--warning-color); } /* Added for orange toasts */
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            box-shadow: var(--shadow-md);
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            background: var(--success-color);
+        }
+
+        .toast.error {
+            background: var(--error-color);
+        }
+
+        .toast.warning {
+            background: var(--warning-color);
+        }
+
+        /* Added for orange toasts */
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
 
         /* Loading Spinner */
-        .spinner { animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
 
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .config-row { flex-direction: column; }
-            .header-content h1 { font-size: 1.5rem; }
-            .tabs-nav { gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; }
-            .guide-slide { padding: 2rem 3rem; } 
-            .guide-carousel-container { height: 700px; }
+            .header-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .tabs-nav {
+                gap: 1rem;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .guide-slide {
+                padding: 2rem 3rem;
+            }
+
+            .guide-carousel-container {
+                height: 700px;
+            }
         }
     </style>
     <!-- Library for DOCX export -->
     <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
+    <!-- Markdown Parser & Sanitizer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
 </head>
+
 <body>
-    
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -442,7 +635,7 @@
     <div class="container">
         <!-- Main Content: Analyzer Tab -->
         <main id="tab-analyzer" class="tab-content active main-content">
-            
+
             <!-- Connection Config -->
             <section class="mode-section">
                 <h2><i class="fas fa-plug"></i> Local Server Configuration</h2>
@@ -450,15 +643,17 @@
                     <div class="config-row">
                         <div class="config-col-full" style="flex: 2;">
                             <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Base URL</label>
-                            <input type="text" id="lm-base-url" class="form-input" value="http://localhost:1234" readonly>
+                            <input type="text" id="lm-base-url" class="form-input" value="http://localhost:1234">
                         </div>
                         <div class="config-col-full" style="flex: 3;">
-                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Model Selection</label>
+                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Model
+                                Selection</label>
                             <div style="display: flex; gap: 0.5rem;">
                                 <select id="lm-model-select" class="form-select">
                                     <option value="">Select a model...</option>
                                 </select>
-                                <button type="button" id="refresh-models-btn" class="btn btn-secondary" title="Refresh models">
+                                <button type="button" id="refresh-models-btn" class="btn btn-secondary"
+                                    title="Refresh models">
                                     <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
@@ -471,22 +666,15 @@
             <section class="input-section">
                 <h2><i class="fas fa-file-alt"></i> Paste Job Description</h2>
                 <div class="input-group">
-                    <textarea 
-                        id="jd-input" 
-                        class="form-textarea" 
-                        placeholder="Paste the full job description text here..."
-                    ></textarea>
+                    <textarea id="jd-input" class="form-textarea"
+                        placeholder="Paste the full job description text here..."></textarea>
                     <span class="char-count" id="jd-char-count">0 characters</span>
                 </div>
 
                 <div class="input-group" style="margin-top: 1.5rem;">
                     <label>Additional Context / Specific Questions (Optional)</label>
-                    <input 
-                        type="text" 
-                        id="additional-focus" 
-                        class="form-input" 
-                        placeholder="e.g., 'Does this mention remote work?', 'Is there Python involved?', 'Analyze for a Junior level applicant'"
-                    >
+                    <input type="text" id="additional-focus" class="form-input"
+                        placeholder="e.g., 'Does this mention remote work?', 'Is there Python involved?', 'Analyze for a Junior level applicant'">
                 </div>
             </section>
 
@@ -498,15 +686,17 @@
                         <input type="checkbox" id="opt-core-analysis" checked>
                         <div class="checkbox-info">
                             <span class="checkbox-title">Core Competencies Breakdown</span>
-                            <span class="checkbox-desc">Detailed split of hard skills, soft skills, and role expectations.</span>
+                            <span class="checkbox-desc">Detailed split of hard skills, soft skills, and role
+                                expectations.</span>
                         </div>
                     </label>
-                    
+
                     <label class="checkbox-label">
                         <input type="checkbox" id="opt-candidate-persona" checked>
                         <div class="checkbox-info">
                             <span class="checkbox-title">Ideal Candidate Persona</span>
-                            <span class="checkbox-desc">Psychological and professional profile of who they really want.</span>
+                            <span class="checkbox-desc">Psychological and professional profile of who they really
+                                want.</span>
                         </div>
                     </label>
 
@@ -522,7 +712,8 @@
                         <input type="checkbox" id="opt-red-flags">
                         <div class="checkbox-info">
                             <span class="checkbox-title">Red Flags & Culture Check</span>
-                            <span class="checkbox-desc">Identify toxic traits, vague requirements, or work-life balance risks.</span>
+                            <span class="checkbox-desc">Identify toxic traits, vague requirements, or work-life balance
+                                risks.</span>
                         </div>
                     </label>
 
@@ -530,7 +721,8 @@
                         <input type="checkbox" id="opt-interview-prep">
                         <div class="checkbox-info">
                             <span class="checkbox-title">Interview Prep Generator</span>
-                            <span class="checkbox-desc">Generate likely technical and behavioral questions based on this JD.</span>
+                            <span class="checkbox-desc">Generate likely technical and behavioral questions based on this
+                                JD.</span>
                         </div>
                     </label>
 
@@ -538,14 +730,16 @@
                         <input type="checkbox" id="opt-salary-est">
                         <div class="checkbox-info">
                             <span class="checkbox-title">Seniority & Market Positioning</span>
-                            <span class="checkbox-desc">Estimate seniority level and potential salary bracket based on responsibilities.</span>
+                            <span class="checkbox-desc">Estimate seniority level and potential salary bracket based on
+                                responsibilities.</span>
                         </div>
                     </label>
                 </div>
             </section>
 
             <!-- Actions -->
-            <section class="action-section" style="background: transparent; border: none; box-shadow: none; padding: 0;">
+            <section class="action-section"
+                style="background: transparent; border: none; box-shadow: none; padding: 0;">
                 <button id="analyze-btn" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">
                     <i class="fas fa-brain"></i> Analyze Job Description
                 </button>
@@ -556,11 +750,13 @@
 
             <!-- Results -->
             <section class="results-section" id="results-section" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                     <h2><i class="fas fa-poll"></i> Analysis Results</h2>
                     <div style="display: flex; gap: 0.5rem;">
                         <button id="copy-btn" class="btn btn-secondary btn-sm"><i class="fas fa-copy"></i> Copy</button>
-                        <button id="export-docx-btn" class="btn btn-secondary btn-sm"><i class="fas fa-file-word"></i> DOCX</button>
+                        <button id="export-docx-btn" class="btn btn-secondary btn-sm"><i class="fas fa-file-word"></i>
+                            DOCX</button>
                     </div>
                 </div>
                 <div class="analysis-output" id="analysis-output">
@@ -572,46 +768,53 @@
         <!-- Tab Content: User Guide Carousel -->
         <main id="tab-guide" class="tab-content">
             <div class="guide-carousel-container">
-                
+
                 <!-- Controls -->
                 <button class="carousel-btn prev" id="guide-prev"><i class="fas fa-chevron-left"></i></button>
                 <button class="carousel-btn next" id="guide-next"><i class="fas fa-chevron-right"></i></button>
-                
+
                 <div class="carousel-nav" id="guide-dots">
                     <!-- Dots generated by JS -->
                 </div>
 
                 <!-- Track -->
                 <div class="guide-track" id="guide-track">
-                    
+
                     <!-- Slide 1: Intro & Setup -->
                     <div class="guide-slide">
                         <div style="text-align: center; margin-bottom: 2rem;">
-                            <i class="fas fa-rocket" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                            <i class="fas fa-rocket"
+                                style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
                             <h2>Getting Started</h2>
-                            <p style="font-size: 1.1rem; color: var(--text-secondary);">Follow these 3 simple steps to start analyzing securely.</p>
+                            <p style="font-size: 1.1rem; color: var(--text-secondary);">Follow these 3 simple steps to
+                                start analyzing securely.</p>
                         </div>
-                        
+
                         <div style="display: grid; gap: 1.5rem;">
                             <div style="display: flex; align-items: flex-start; gap: 1rem;">
                                 <span class="step-number">1</span>
                                 <div>
                                     <strong>Install LM Studio</strong>
-                                    <p>Download it from lmstudio.ai. This software allows you to run AI models on your own computer.</p>
+                                    <p>Download it from lmstudio.ai. This software allows you to run AI models on your
+                                        own computer.</p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: flex-start; gap: 1rem;">
                                 <span class="step-number">2</span>
                                 <div>
                                     <strong>Load a Model & Start Server</strong>
-                                    <p>Download a model like "Llama 3 8B". Go to the <strong>Local Server</strong> tab (left sidebar) and click <span style="color:var(--success-color); font-weight:bold;">Start Server</span>.</p>
+                                    <p>Download a model like "Llama 3 8B". Go to the <strong>Local Server</strong> tab
+                                        (left sidebar) and click <span
+                                            style="color:var(--success-color); font-weight:bold;">Start Server</span>.
+                                    </p>
                                 </div>
                             </div>
                             <div style="display: flex; align-items: flex-start; gap: 1rem;">
                                 <span class="step-number">3</span>
                                 <div>
                                     <strong>Connect & Analyze</strong>
-                                    <p>Come back here, click the refresh icon <i class="fas fa-sync-alt"></i> in the config box, select your model, and hit Analyze!</p>
+                                    <p>Come back here, click the refresh icon <i class="fas fa-sync-alt"></i> in the
+                                        config box, select your model, and hit Analyze!</p>
                                 </div>
                             </div>
                         </div>
@@ -620,8 +823,9 @@
                     <!-- Slide 2: Modules -->
                     <div class="guide-slide">
                         <h2 style="text-align: center;">Understanding the Modules</h2>
-                        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">What each analysis option actually does for you.</p>
-                        
+                        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">What each
+                            analysis option actually does for you.</p>
+
                         <div class="guide-grid">
                             <div class="guide-card">
                                 <i class="fas fa-user-check" style="color: var(--primary-color)"></i>
@@ -646,7 +850,8 @@
                             <div class="guide-card">
                                 <i class="fas fa-money-bill-wave" style="color: var(--warning-color)"></i>
                                 <h4>Seniority & Pay</h4>
-                                <p>Estimates true seniority level and expected salary range based on responsibilities.</p>
+                                <p>Estimates true seniority level and expected salary range based on responsibilities.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -655,19 +860,25 @@
                     <div class="guide-slide">
                         <h2 style="text-align: center; color: var(--error-color);">Troubleshooting</h2>
                         <div style="max-width: 600px; margin: 0 auto; margin-top: 2rem;">
-                            <h3 style="border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">"Disconnected" Status?</h3>
+                            <h3 style="border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">
+                                "Disconnected" Status?</h3>
                             <ul style="list-style: none; padding: 0; margin-top: 1rem;">
-                                <li style="margin-bottom: 1rem; padding: 1rem; background: #fff1f2; border-radius: 6px; border: 1px solid #fecdd3;">
+                                <li
+                                    style="margin-bottom: 1rem; padding: 1rem; background: #fff1f2; border-radius: 6px; border: 1px solid #fecdd3;">
                                     <strong><i class="fas fa-check-circle"></i> Check Server Status</strong><br>
                                     Is the green bar active in LM Studio's "Local Server" tab?
                                 </li>
-                                <li style="margin-bottom: 1rem; padding: 1rem; background: #fff1f2; border-radius: 6px; border: 1px solid #fecdd3;">
+                                <li
+                                    style="margin-bottom: 1rem; padding: 1rem; background: #fff1f2; border-radius: 6px; border: 1px solid #fecdd3;">
                                     <strong><i class="fas fa-globe"></i> CORS Settings</strong><br>
-                                    In LM Studio Server Options (right sidebar), ensure <strong>CORS</strong> is enabled. This allows the browser to talk to the server.
+                                    In LM Studio Server Options (right sidebar), ensure <strong>CORS</strong> is
+                                    enabled. This allows the browser to talk to the server.
                                 </li>
-                                <li style="margin-bottom: 1rem; padding: 1rem; background: #fff1f2; border-radius: 6px; border: 1px solid #fecdd3;">
+                                <li
+                                    style="margin-bottom: 1rem; padding: 1rem; background: #fff1f2; border-radius: 6px; border: 1px solid #fecdd3;">
                                     <strong><i class="fas fa-link"></i> Port Mismatch</strong><br>
-                                    Default port is <code>1234</code>. If you changed it in LM Studio, update the Base URL in this tool.
+                                    Default port is <code>1234</code>. If you changed it in LM Studio, update the Base
+                                    URL in this tool.
                                 </li>
                             </ul>
                         </div>
@@ -701,14 +912,14 @@
                 this.additionalFocus = document.getElementById('additional-focus');
                 this.lmBaseUrl = document.getElementById('lm-base-url');
                 this.modelSelect = document.getElementById('lm-model-select');
-                
+
                 // Buttons
                 this.refreshBtn = document.getElementById('refresh-models-btn');
                 this.analyzeBtn = document.getElementById('analyze-btn');
                 this.clearBtn = document.getElementById('clear-btn');
                 this.copyBtn = document.getElementById('copy-btn');
                 this.exportDocxBtn = document.getElementById('export-docx-btn');
-                
+
                 // Options
                 this.opts = {
                     core: document.getElementById('opt-core-analysis'),
@@ -750,7 +961,7 @@
                     tab.addEventListener('click', () => {
                         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                        
+
                         tab.classList.add('active');
                         const targetId = `tab-${tab.dataset.tab}`;
                         document.getElementById(targetId).classList.add('active');
@@ -764,7 +975,7 @@
                 const nextBtn = document.getElementById('guide-next');
                 const prevBtn = document.getElementById('guide-prev');
                 const dotsNav = document.getElementById('guide-dots');
-                
+
                 let currentSlideIndex = 0;
 
                 // Create dots
@@ -775,13 +986,13 @@
                     dot.addEventListener('click', () => moveToSlide(index));
                     dotsNav.appendChild(dot);
                 });
-                
+
                 const dots = Array.from(dotsNav.children);
 
                 const updateCarousel = () => {
                     const amountToMove = -100 * currentSlideIndex;
                     track.style.transform = `translateX(${amountToMove}%)`;
-                    
+
                     dots.forEach(d => d.classList.remove('active'));
                     dots[currentSlideIndex].classList.add('active');
                 };
@@ -800,7 +1011,7 @@
             validateState() {
                 const hasJD = this.jdInput.value.trim().length > 10;
                 const hasModel = this.modelSelect.value !== "";
-                
+
                 if (!hasModel) {
                     this.analyzeBtn.disabled = true;
                     this.analyzeBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Select Model First';
@@ -817,11 +1028,11 @@
                 this.refreshBtn.classList.add('spinner');
                 try {
                     const response = await fetch(`${this.lmBaseUrl.value}/v1/models`);
-                    if(!response.ok) throw new Error('Failed to connect');
-                    
+                    if (!response.ok) throw new Error('Failed to connect');
+
                     const data = await response.json();
                     const models = data.data || [];
-                    
+
                     this.modelSelect.innerHTML = '<option value="">Select a model...</option>';
                     models.forEach(m => {
                         const opt = document.createElement('option');
@@ -832,7 +1043,7 @@
 
                     // Restore selection
                     const saved = localStorage.getItem('selectedModel');
-                    if(saved && models.some(m => m.id === saved)) {
+                    if (saved && models.some(m => m.id === saved)) {
                         this.modelSelect.value = saved;
                         this.updateStatusUI(true, saved);
                     } else {
@@ -853,7 +1064,7 @@
                 const text = this.connectionStatus.querySelector('span');
                 const modelText = this.modelStatus.querySelector('span');
 
-                if(connected) {
+                if (connected) {
                     dot.className = 'fas fa-circle status-dot connected';
                     text.textContent = 'LM Studio: Connected';
                     modelText.textContent = modelName ? `Model: ${modelName}` : 'Select a Model';
@@ -867,36 +1078,38 @@
             buildPrompt() {
                 const jd = this.jdInput.value;
                 const extra = this.additionalFocus.value;
-                
-                let prompt = `You are an expert HR Consultant and Technical Recruiter. I will provide a Job Description (JD). Please analyze it thoroughly based on the requested sections below.\n\n`;
-                
+
+                let prompt = `You are an expert HR Consultant and Technical Recruiter with a deep knowledge of human and social psychology. I will provide a Job Description (JD). Please analyze it thoroughly based on the requested sections below.\n\n`;
+
                 prompt += `JOB DESCRIPTION:\n"""${jd}"""\n\n`;
-                if(extra) prompt += `ADDITIONAL USER QUESTIONS: ${extra}\n\n`;
+                if (extra) prompt += `ADDITIONAL USER QUESTIONS: ${extra}\n\n`;
 
                 prompt += `Please generate the following analysis sections in Markdown format (Use H2 ## for headers):\n\n`;
 
-                if(this.opts.core.checked) {
+                if (this.opts.core.checked) {
                     prompt += `## 1. CORE COMPETENCIES BREAKDOWN
 - **Technical/Hard Skills:** List specific tools, languages, and frameworks ranked by implied importance.
+
 - **Soft Skills:** List the interpersonal traits required.
+
 - **Key Responsibilities:** Summarize the day-to-day work in bullet points.
 - **Education/Experience:** Clarify the "must-haves" vs "nice-to-haves".\n\n`;
                 }
 
-                if(this.opts.persona.checked) {
-                    prompt += `## 2. IDEAL CANDIDATE PERSONA
-Describe the profile of the person who gets hired. Not just skills, but their mindset, their background, and how they approach problems. Use professional psychological profiling terms if applicable (e.g., "High agency," "Growth mindset").\n\n`;
+                if (this.opts.persona.checked) {
+                    prompt += `## 2. IDEAL CANDIDATE PROFILE
+Describe the profile of the person who gets hired. Not just skills, but their mindset, their background, and how they approach problems. Use Myers Briggs Type Indicator.\n\n`;
                 }
 
-                if(this.opts.decoder.checked) {
+                if (this.opts.decoder.checked) {
                     prompt += `## 3. CORPORATE JARGON DECODER
-Identify the corporate jargon phrases or buzzwords in the text (e.g., "fast-paced," "rockstar," "wear many hats").
+Identify the corporate jargon phrases (needlessly obscure or, alternatively, used to disguise an absence of information), buzzwords or doublespeak in the text and provide clear translations.
 - **Phrase:** [The phrase]
 - **Translation:** [What it actually means pragmatically]
 - **Implication:** [What this means for the daily workload]\n\n`;
                 }
 
-                if(this.opts.redFlags.checked) {
+                if (this.opts.redFlags.checked) {
                     prompt += `## 4. RED FLAGS & CULTURE CHECK
 Analyze the text for potential warning signs:
 - Unrealistic requirements or expectations (unicorn hunting).
@@ -907,7 +1120,7 @@ Analyze the text for potential warning signs:
 - Give a "Stress Score" estimate (1-10) with reasoning.\n\n`;
                 }
 
-                if(this.opts.salary.checked) {
+                if (this.opts.salary.checked) {
                     prompt += `## 5. SENIORITY & MARKET POSITIONING
 Based on the responsibilities (not just the title):
 - Estimated Seniority Level (Junior, Mid, Senior, Lead, Principal) as derives from the job requirements.
@@ -917,12 +1130,12 @@ Based on the responsibilities (not just the title):
 - Career Growth Potential (Does this role lead somewhere?).\n\n`;
                 }
 
-                if(this.opts.interview.checked) {
+                if (this.opts.interview.checked) {
                     prompt += `## 6. INTERVIEW PREPARATION
 Based specifically on the requirements above, generate:
 - 5 Technical/Hard Skill Questions likely to be asked.
 - 5 Behavioral/Soft Skill Questions (STAR method style).
-- 5 Questions the *Candidate* should ask the interviewer to impress them.\n\n`;
+- 5 Questions the *Candidate* should ask the interviewer to clarify job requirements or address vague areas.\n\n`;
                 }
 
                 return prompt;
@@ -932,9 +1145,9 @@ Based specifically on the requirements above, generate:
                 const prompt = this.buildPrompt();
                 this.analyzeBtn.disabled = true;
                 this.analyzeBtn.innerHTML = '<i class="fas fa-spinner spinner"></i> Analyzing...';
-                
-                if(!document.getElementById('tab-analyzer').classList.contains('active')) {
-                   document.querySelector('[data-tab="analyzer"]').click(); 
+
+                if (!document.getElementById('tab-analyzer').classList.contains('active')) {
+                    document.querySelector('[data-tab="analyzer"]').click();
                 }
 
                 this.resultsSection.style.display = 'none';
@@ -956,10 +1169,10 @@ Based specifically on the requirements above, generate:
                         })
                     });
 
-                    if(!response.ok) throw new Error('API Error');
+                    if (!response.ok) throw new Error('API Error');
                     const data = await response.json();
                     const content = data.choices[0].message.content;
-                    
+
                     this.renderResults(content);
                     this.showToast('Analysis Complete', 'success');
                 } catch (e) {
@@ -971,42 +1184,38 @@ Based specifically on the requirements above, generate:
             }
 
             renderResults(markdown) {
-                let html = markdown
-                    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-                    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-                    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-                    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-                    .replace(/\*(.*)\*/gim, '<em>$1</em>')
-                    .replace(/^\- (.*$)/gim, '<li>$1</li>')
-                    .replace(/\n/gim, '<br>');
-                
-                html = html.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>').replace(/<\/ul><br><ul>/gim, '');
-                
-                this.analysisOutput.innerHTML = html;
+                // Use marked.js to parse and DOMPurify to sanitize
+                const rawHtml = marked.parse(markdown);
+                const cleanHtml = DOMPurify.sanitize(rawHtml);
+
+                this.analysisOutput.innerHTML = cleanHtml;
                 this.resultsSection.style.display = 'block';
                 this.resultsSection.scrollIntoView({ behavior: 'smooth' });
-                
+
                 this.lastRawText = markdown;
             }
 
             copyResults() {
-                if(!this.lastRawText) return;
+                if (!this.lastRawText) return;
                 navigator.clipboard.writeText(this.lastRawText);
                 this.showToast('Copied to clipboard', 'success');
             }
 
             exportDocx() {
-                if(!this.analysisOutput.innerHTML) return;
-                
+                if (!this.analysisOutput.innerHTML) return;
+
                 const content = `
                     <!DOCTYPE html>
-                    <html><head><style>body { font-family: Arial; }</style></head>
+                    <html><head>
+                        <meta charset="UTF-8">
+                        <style>body { font-family: Arial; }</style>
+                    </head>
                     <body>
                         <h1>Job Description Analysis</h1>
                         ${this.analysisOutput.innerHTML}
                     </body></html>
                 `;
-                
+
                 const blob = window.htmlDocx.asBlob(content);
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -1019,26 +1228,26 @@ Based specifically on the requirements above, generate:
             }
 
             clearAll() {
-                this.jdInput.value = '';
-                this.additionalFocus.value = '';
-                this.resultsSection.style.display = 'none';
-                this.validateState();
-            }
+            this.jdInput.value = '';
+            this.additionalFocus.value = '';
+            this.resultsSection.style.display = 'none';
+            this.validateState();
+        }
 
-            loadSettings() {
-                const savedModel = localStorage.getItem('selectedModel');
-                if(savedModel) {
-                    this.fetchModels();
-                }
+        loadSettings() {
+            const savedModel = localStorage.getItem('selectedModel');
+            if (savedModel) {
+                this.fetchModels();
             }
+        }
 
-            showToast(msg, type) {
-                const t = document.createElement('div');
-                t.className = `toast ${type}`;
-                t.innerText = msg;
-                document.getElementById('toast-container').appendChild(t);
-                setTimeout(() => t.remove(), 3000);
-            }
+        showToast(msg, type) {
+            const t = document.createElement('div');
+            t.className = `toast ${type}`;
+            t.innerText = msg;
+            document.getElementById('toast-container').appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1046,4 +1255,5 @@ Based specifically on the requirements above, generate:
         });
     </script>
 </body>
+
 </html>
